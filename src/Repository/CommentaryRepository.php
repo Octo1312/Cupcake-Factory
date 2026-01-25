@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\Commentaire;
+use App\Entity\Commentary;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Commentaire>
+ * @extends ServiceEntityRepository<Commentary>
  */
-class CommentaireRepository extends ServiceEntityRepository
+class CommentaryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Commentaire::class);
+        parent::__construct($registry, Commentary::class);
     }
 
 //    /**
-//     * @return Commentaire[] Returns an array of Commentaire objects
+//     * @return Commentary[] Returns an array of Commentary objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -31,7 +31,7 @@ class CommentaireRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Commentaire
+//    public function findOneBySomeField($value): ?Commentary
 //    {
 //        return $this->createQueryBuilder('c')
 //            ->andWhere('c.exampleField = :val')

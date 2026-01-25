@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\Colors;
+use App\Entity\Cupcake;
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class CupcakeType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('name')
+            ->add('image')
+            ->add('price')
+            ->add('description')
+            ->add('user', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'id',
+            ])
+            ->add('colors', EntityType::class, [
+                'class' => Colors::class,
+                'choice_label' => 'id',
+                'multiple' => true,
+            ])
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Cupcake::class,
+        ]);
+    }
+}

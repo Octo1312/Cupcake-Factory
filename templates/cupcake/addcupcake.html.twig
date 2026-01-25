@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ isModification ? 'Modifier un cupcake' :  'Ajouter un cupcake' }}{% endblock %}
+
+{% block body %}
+    <section id="">
+        <div class="container">
+                <div class="container-form">
+                    <h1> {{ isModification ? 'Modifier le cupcake' :  'Ajouter un cupcake' }}</h1>
+
+                    {{form_start(form)}}
+                        {{form_widget(form)}}
+                        <button>{{ isModification ? 'Modifier' :  'Ajouter' }}</button>
+                    {{form_end(form)}}
+
+                    {{form_start(formcolors)}}
+                        {{form_widget(formcolors)}}
+                    {{form_end(formcolors)}}
+                  </div>
+            </div>
+    </section>
+
+{% endblock %}

@@ -18,3 +18,57 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
+
+# Diagram.txt 
+
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+Table user {
+  id integer [primary key]
+  username varchar
+  password varchar
+}
+
+Table cupcake {
+  id integer [primary key]
+  name varchar
+  id_colorcupcake int
+  image varchar
+  price int
+  description varchar
+  id_users int
+}
+
+Table commentaires {
+  id integer [primary key]
+  commentaire varchar
+  id_users int
+  id_cupcake int
+}
+
+Table color {
+  id int [primary key]
+  color varchar
+}
+
+Table cupcake_color {
+  id_color int
+  id_cupcake int
+}
+
+Ref: "user"."id" < "commentaires"."id_users"
+
+Ref: "user"."id" < "cupcake"."id_users"
+
+Ref: "cupcake"."id" < "commentaires"."id_cupcake"
+
+Ref: "color"."id" < "cupcake_color"."id_color"
+
+Ref: "cupcake"."id" < "cupcake_color"."id_cupcake"

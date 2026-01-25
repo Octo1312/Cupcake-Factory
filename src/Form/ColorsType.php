@@ -2,26 +2,31 @@
 
 namespace App\Form;
 
-use App\Entity\User;
+use App\Entity\Colors;
+use App\Entity\Cupcake;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RegisterFormType extends AbstractType
+class ColorsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('username')
-            ->add('password', PasswordType::class)
+            ->add('color')
+            ->add('cupcake', EntityType::class, [
+                'class' => Cupcake::class,
+                'choice_label' => 'id',
+                'multiple' => true,
+            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => Colors::class,
         ]);
     }
 }

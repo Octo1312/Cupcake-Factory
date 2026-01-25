@@ -7,7 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
+#[UniqueEntity(fields: ['name'], message: 'Un Cupcake avec ce nom existe déjà.')]
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: CupcakeRepository::class)]
 class Cupcake
 {
@@ -17,36 +23,49 @@ class Cupcake
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 5)]
+    #[Assert\NotBlank()]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $image = null;
 
-    #[ORM\Column]
-    private ?int $price = null;
-
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $description = null;
-
-    #[ORM\ManyToOne(inversedBy: 'cupcakes')]
-    private ?User $user = null;
-
-    /**
-     * @var Collection<int, Commentaire>
-     */
-    #[ORM\OneToMany(targetEntity: Commentaire::class, mappedBy: 'cupcake')]
-    private Collection $commentaires;
 
     /**
      * @var Collection<int, Colors>
      */
-    #[ORM\ManyToMany(targetEntity: Colors::class, mappedBy: 'cupcake')]
+    #[ORM\ManyToMany(targetEntity: Colors::class, inversedBy: 'Cupcakes')]
     private Collection $colors;
+
+    /**
+     * @var Collection<int, Commentary>
+     */
+    #[ORM\OneToMany(targetEntity: Commentary::class, mappedBy: 'Cupcake')]
+    private Collection $commentaries;
+
+    #[ORM\Column(nullable: true)]
+    #[Assert\NotBlank()]
+    #[Assert\Positive()]
+    private ?int $price = null;
+
+    #[ORM\ManyToOne(inversedBy: 'Cupcakes')]
+    private ?User $user = null;
+
+    #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'imageName')]
+    #[Assert\NotBlank()]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $imageName = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
 
     public function __construct()
     {
-        $this->commentaires = new ArrayCollection();
         $this->colors = new ArrayCollection();
+        $this->commentaries = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -66,14 +85,57 @@ class Cupcake
         return $this;
     }
 
-    public function getImage(): ?string
+
+    /**
+     * @return Collection<int, Colors>
+     */
+    public function getColors(): Collection
     {
-        return $this->image;
+        return $this->colors;
     }
 
-    public function setImage(string $image): static
+    public function addColor(Colors $color): static
     {
-        $this->image = $image;
+        if (!$this->colors->contains($color)) {
+            $this->colors->add($color);
+        }
+
+        return $this;
+    }
+
+    public function removeColor(Colors $color): static
+    {
+        $this->colors->removeElement($color);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentary>
+     */
+    public function getCommentaries(): Collection
+    {
+        return $this->commentaries;
+    }
+
+    public function addCommentary(Commentary $commentary): static
+    {
+        if (!$this->commentaries->contains($commentary)) {
+            $this->commentaries->add($commentary);
+            $commentary->setCupcake($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentary(Commentary $commentary): static
+    {
+        if ($this->commentaries->removeElement($commentary)) {
+            // set the owning side to null (unless already changed)
+            if ($commentary->getCupcake() === $this) {
+                $commentary->setCupcake(null);
+            }
+        }
 
         return $this;
     }
@@ -83,21 +145,9 @@ class Cupcake
         return $this->price;
     }
 
-    public function setPrice(int $price): static
+    public function setPrice(?int $price): static
     {
         $this->price = $price;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): static
-    {
-        $this->description = $description;
 
         return $this;
     }
@@ -114,60 +164,40 @@ class Cupcake
         return $this;
     }
 
-    /**
-     * @return Collection<int, Commentaire>
-     */
-    public function getCommentaires(): Collection
+    public function getImageFile(): ?File
     {
-        return $this->commentaires;
+        return $this->imageFile;
     }
 
-    public function addCommentaire(Commentaire $commentaire): static
+    public function setImageFile(?File $imageFile): void
     {
-        if (!$this->commentaires->contains($commentaire)) {
-            $this->commentaires->add($commentaire);
-            $commentaire->setCupcake($this);
+        $this->imageFile = $imageFile;
+
+        if($imageFile) {
+            $this->updatedAt = new \DateTimeImmutable();
         }
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }
 
-    public function removeCommentaire(Commentaire $commentaire): static
-    {
-        if ($this->commentaires->removeElement($commentaire)) {
-            // set the owning side to null (unless already changed)
-            if ($commentaire->getCupcake() === $this) {
-                $commentaire->setCupcake(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Colors>
-     */
-    public function getColors(): Collection
-    {
-        return $this->colors;
-    }
-
-    public function addColor(Colors $color): static
-    {
-        if (!$this->colors->contains($color)) {
-            $this->colors->add($color);
-            $color->addCupcake($this);
-        }
-
-        return $this;
-    }
-
-    public function removeColor(Colors $color): static
-    {
-        if ($this->colors->removeElement($color)) {
-            $color->removeCupcake($this);
-        }
-
-        return $this;
-    }
 }

@@ -16,6 +16,18 @@ class CupcakeRepository extends ServiceEntityRepository
         parent::__construct($registry, Cupcake::class);
     }
 
+    public function findFour(): array
+   {
+       return $this->createQueryBuilder('c')
+            ->leftJoin('c.colors', 'co')
+            ->addSelect('co')
+            ->orderBy('c.id', 'DESC')
+            ->setMaxResults( 4 )
+            ->getQuery()
+            ->getResult()
+        ;
+   }
+
 //    /**
 //     * @return Cupcake[] Returns an array of Cupcake objects
 //     */

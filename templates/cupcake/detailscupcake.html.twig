@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du cupcake{% endblock %}
+
+{% block body %}
+    <section id="">
+        <div class="container">
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-image">
+                            <img src="{{ asset('uploads/images/' ~ cupcake.imageName) }}" alt="Image du cupcake">
+                        </div>
+                        <div class="card-title">
+                            <h2>{{ cupcake.name }}</h2>
+                        </div>
+                        <div class="card-body">
+                            {% if cupcake.description != null %}
+                                <p class="type">Description :</p>
+                                <p>{{ cupcake.description }}</p>
+                            {% endif %}
+                            {% if cupcake.price != null %}
+                                <p class="type">Prix approximatif : </p>
+                                <p>{{ cupcake.price }} €</p>
+                            {% endif %}
+                            {% if cupcake.colors != null %}
+                            <p class="type">Couleurs :</p>
+                            <p>
+                                {% for color in cupcake.colors %}
+                                    {{ color.name }}{% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            </p>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="card-option">
+                            {% if is_granted('ROLE_USER')%}
+                                {% if app.user.id == cupcake.user.id %}
+                                    <a href="{{path('cupcake_modify',{'id' : cupcake.id})}}">Modifier</a>
+                                    <form method="POST" action="{{ path('cupcake_delete', {'id': cupcake.id}) }}">
+                                        <input type="hidden" name="_method" value="delete">
+                                        <input type="hidden" name="_token" value="{{csrf_token('SUP' ~ cupcake.id)}}">
+                                        <input type="submit" id="delete" value="Supprimer">
+                                    </form>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-commentaries">
+                        <div>
+                            <h3>Commentaires :</h3>
+                            {% for commentarie in cupcake.commentaries %}
+                                <div class="commentary">
+                                    <p><strong>{{ commentarie.user.username }} :</strong></p>
+                                    <p class="commentary-end">{{ commentarie.content }}</p>
+                                </div>
+                            {% endfor %}
+
+                            {% if is_granted('ROLE_USER')%}
+                                {{ form(form) }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

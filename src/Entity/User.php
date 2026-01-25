@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['username'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -19,7 +19,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
-    private ?string $email = null;
+    private ?string $username = null;
 
     /**
      * @var list<string> The user roles
@@ -40,15 +40,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $cupcakes;
 
     /**
-     * @var Collection<int, Commentaire>
+     * @var Collection<int, Commentary>
      */
-    #[ORM\OneToMany(targetEntity: Commentaire::class, mappedBy: 'user')]
-    private Collection $commentaires;
+    #[ORM\OneToMany(targetEntity: Commentary::class, mappedBy: 'user')]
+    private Collection $commentaries;
 
     public function __construct()
     {
         $this->cupcakes = new ArrayCollection();
-        $this->commentaires = new ArrayCollection();
+        $this->commentaries = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -56,14 +56,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    public function getEmail(): ?string
+    public function getUsername(): ?string
     {
-        return $this->email;
+        return $this->username;
     }
 
-    public function setEmail(string $email): static
+    public function setUsername(string $username): static
     {
-        $this->email = $email;
+        $this->username = $username;
 
         return $this;
     }
@@ -75,7 +75,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string) $this->username;
     }
 
     /**
@@ -152,29 +152,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Commentaire>
+     * @return Collection<int, Commentary>
      */
-    public function getCommentaires(): Collection
+    public function getCommentaries(): Collection
     {
-        return $this->commentaires;
+        return $this->commentaries;
     }
 
-    public function addCommentaire(Commentaire $commentaire): static
+    public function addCommentary(Commentary $commentary): static
     {
-        if (!$this->commentaires->contains($commentaire)) {
-            $this->commentaires->add($commentaire);
-            $commentaire->setUser($this);
+        if (!$this->commentaries->contains($commentary)) {
+            $this->commentaries->add($commentary);
+            $commentary->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeCommentaire(Commentaire $commentaire): static
+    public function removeCommentary(Commentary $commentary): static
     {
-        if ($this->commentaires->removeElement($commentaire)) {
+        if ($this->commentaries->removeElement($commentary)) {
             // set the owning side to null (unless already changed)
-            if ($commentaire->getUser() === $this) {
-                $commentaire->setUser(null);
+            if ($commentary->getUser() === $this) {
+                $commentary->setUser(null);
             }
         }
 

@@ -1,6 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription{% endblock %}
+{% block title %}S'inscrire{% endblock %}
 
 {% block main %}
+    <section id="register_form">
+<div class="form container">
+{{ form_start(registerform) }}
+    {{ form_widget(registerform)}}
+    <div class="formbtn">
+        <button class="btn" type="submit">Créer</button>
+    </div>
+{{ form_end(registerform) }}
+</div>
+</section>
 {% endblock %}
