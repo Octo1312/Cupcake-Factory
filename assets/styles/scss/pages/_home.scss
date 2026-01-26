@@ -1,0 +1,23 @@
+@use "../abstracts/variable" as variable;
+@use "../abstracts/mixin" as mix;
+
+body {
+    #banner {
+        background-image: url("../../../../public/img/banner.jpg");
+        height: 40rem;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        
+        .banner_container {
+            @include mix.container;
+
+            h1 {
+                color: #AF3B6E;
+                font-size: 6rem;
+                text-align: center;
+                padding: 10vh;
+            }
+        }
+    }
+}

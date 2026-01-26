@@ -1,19 +1,22 @@
-@use "../abstracts/variables" as variable;
+@use "../abstracts/variable" as variable;
 
 body {
     header {
-        display: flex;
-        justify-content: center;
-        align-items: center;
         width: 100%;
-        position: fixed;
-        z-index: 2;
-        height: 15vh;
 
         .nav-desktop {
-            background-color: #00000081;
-            padding: 1.5rem;
-            border-radius: 500px;
+            background-color: #A6D9F7;
+            height: 20vh;
+            display: flex;
+            justify-content: space-evenly;
+
+            .nav-img {
+                display: flex;
+
+                img {
+                    width: 100%;
+                }
+            }
 
             ul {
                 height: 100%;
@@ -27,8 +30,8 @@ body {
                     a {
                         position: relative;
                         font-family: variable.$font-family-title;
-                        color: white;
-                        text-shadow: black 1px 1px 4px;
+                        color: #AF3B6E;
+                        text-shadow: #F5D7E3 1px 1px 4px;
                         font-size: 2rem;
                         display: inline-block;
                         text-decoration: none;
@@ -40,9 +43,9 @@ body {
                             width: 0;
                             height: 2px;
                             bottom: -5px;
-                            background: white;
+                            background: #AF3B6E;
                             transition: width 0.3s;
-                            box-shadow: black 1px 1px 4px;
+                            box-shadow: #F5D7E3 1px 1px 4px;
                         }
                     }
                     
@@ -54,19 +57,16 @@ body {
         }
 
         .burger {
-            background-color: #00000081;
+            background-color: #A6D9F7;
             padding: 1.5rem;
-            border-radius: 500px;
             display: none;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
             cursor: pointer;
 
             span {
                 height: 5px;
                 width: 50px;
-                background: white;
+                background: #AF3B6E;
                 border-radius: 5px;
 
                 &:not(:last-child) {
@@ -78,10 +78,18 @@ body {
         .nav-mobile {
             position: absolute;
             transform: translateY(200px);
-            background-color: #000000bd;
+            background-color: #A6D9F7;
             padding: 1.5rem;
             display: none;
             border-radius: 20px;
+
+            .nav-img {
+                display: flex;
+
+                img {
+                    width: 100%;
+                }
+            }
 
             ul {
                 list-style-type: none;
@@ -93,8 +101,8 @@ body {
                 li {
                     a {
                         font-family: variable.$font-family-title;
-                        color: white;
-                        text-shadow: black 1px 1px 4px;
+                        color: #AF3B6E;
+                        text-shadow: #F5D7E3 1px 1px 4px;
                         font-size: 2rem;
                         text-decoration: none;
                     }

@@ -1,23 +1,23 @@
 // Base
-@use "base/normalize";
-@use "base/reset";
+@use "scss/base/normalize";
+@use "scss/base/reset";
 
 // Abstracts
-@use "abstracts/variables";
-@use "abstracts/mixins";
-@use "abstracts/font";
+@use "scss/abstracts/variable";
+@use "scss/abstracts/mixin";
+@use "scss/abstracts/font";
 
 // Pages
-@use "pages/home";
-@use "pages/login";
-@use "pages/contact";
-@use "pages/museum";
-@use "pages/register";
-@use "pages/cupcake";
-@use "pages/details";
+@use "scss/pages/home";
+@use "scss/pages/login";
+@use "scss/pages/contact";
+@use "scss/pages/museum";
+@use "scss/pages/register";
+@use "scss/pages/cupcake";
+@use "scss/pages/details";
 
 // Layout
-@use "layout/header";
-@use "layout/body";
-@use "layout/footer";
-@use "layout/responsive";
+@use "scss/layout/header";
+@use "scss/layout/body";
+@use "scss/layout/footer";
+@use "scss/layout/responsive";

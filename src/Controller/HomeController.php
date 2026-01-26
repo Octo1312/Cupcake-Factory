@@ -17,16 +17,18 @@ final class HomeController extends AbstractController
     public function index(CupcakeRepository $cupcakeRepository): Response
     {
 
-        $masque = $cupcakeRepository->findFour();
+        $cupcake = $cupcakeRepository->findFour();
         return $this->render('home/home.html.twig', [
+            "cupcake" => $cupcake,
         ]);
     }
 
     #[Route('/museum', name: 'museum')]
-    public function galerie(CupcakeRepository $masqueRepository): Response
+    public function galerie(CupcakeRepository $cupcakeRepository): Response
     {   
-        $masque = $masqueRepository->findAll();
+        $cupcake = $cupcakeRepository->findAll();
         return $this->render('home/museum.html.twig', [
+            "cupcake" => $cupcake,
         ]);
     }
 
