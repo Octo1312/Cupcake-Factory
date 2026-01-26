@@ -1,0 +1,6 @@
+@use "../abstracts/variables" as variable;
+
+body {
+    position: relative;
+    font-family: variable.$font-family-body;
+}

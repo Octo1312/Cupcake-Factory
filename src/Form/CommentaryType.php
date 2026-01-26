@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Commentaire;
+use App\Entity\Commentary;
 use App\Entity\Cupcake;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -30,7 +30,7 @@ class CommentaryType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Commentaire::class,
+            'data_class' => Commentary::class,
         ]);
     }
 }
