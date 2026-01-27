@@ -32,13 +32,13 @@ class Cupcake
     /**
      * @var Collection<int, Colors>
      */
-    #[ORM\ManyToMany(targetEntity: Colors::class, inversedBy: 'Cupcakes')]
+    #[ORM\ManyToMany(targetEntity: Colors::class, inversedBy: 'cupcakes')]
     private Collection $colors;
 
     /**
      * @var Collection<int, Commentary>
      */
-    #[ORM\OneToMany(targetEntity: Commentary::class, mappedBy: 'Cupcake')]
+    #[ORM\OneToMany(targetEntity: Commentary::class, mappedBy: 'cupcake')]
     private Collection $commentaries;
 
     #[ORM\Column(nullable: true)]
@@ -46,7 +46,7 @@ class Cupcake
     #[Assert\Positive()]
     private ?int $price = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Cupcakes')]
+    #[ORM\ManyToOne(inversedBy: 'cupcakes')]
     private ?User $user = null;
 
     #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'imageName')]

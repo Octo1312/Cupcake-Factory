@@ -34,7 +34,7 @@
                         </div>
                         
                         <div class="card-option">
-                            {# {% if is_granted('ROLE_USER')%}
+                            {% if is_granted('ROLE_USER')%}
                                 {% if app.user.id == cupcake.user.id %}
                                     <a href="{{path('modifycupcake',{'id' : cupcake.id})}}">Modifier</a>
                                     <form method="POST" action="{{ path('deletecupcake', {'id': cupcake.id}) }}">
@@ -43,26 +43,18 @@
                                         <input type="submit" id="delete" value="Supprimer">
                                     </form>
                                 {% endif %}
-                            {% endif %} #}
+                            {% endif %} 
                         </div>
                     </div>
                     <div class="card-commentaries">
                         <div>
                             <h3>Commentaires :</h3>
-                            <pre>
-                                {{ dump(cupcake.commentaries.elements) }}
-                            </pre>
-                            {# {% for commentarie in cupcake.commentaries %}
-                                
-                                <pre>
-                                    {{ dump(commentarie) }}
-                                </pre>
-
-                                {# <div class="commentary">
+                            {% for commentarie in cupcake.commentaries %}
+                                <div class="commentary">
                                     <p><strong>{{ commentarie.user.username }} :</strong></p>
                                     <p class="commentary-end">{{ commentarie.content }}</p>
-                                </div> #}
-                            {# {% endfor %} #} 
+                                </div>
+                                {% endfor %} 
 
                             {% if is_granted('ROLE_USER')%}
                                 {{ form(form) }}
