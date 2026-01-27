@@ -24,6 +24,7 @@ body {
     #display {
         background-color: #F4A5AE;
         padding-top: 2rem;
+        padding-bottom: 2rem;
 
         .container {
             @include mix.container;

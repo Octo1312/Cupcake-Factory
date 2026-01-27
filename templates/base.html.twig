@@ -51,4 +51,16 @@
         {% endblock %}
         {% block main %}{% endblock %}
     </body>
+    <footer>
+        <nav class="nav-desktop">
+                <ul>
+                    <li><a href="{{path('home')}}">Accueil</svg></a></li>
+                    <li><a href="{{path('museum')}}">Musée du Cupcake</a></li>
+                    <li><a href="{{path('contact')}}">Contact</a></li>
+                </ul>
+                <div class="nav-img">
+                    <img src="{{ asset('img/CupcakeMuseumLogo.png')}}" alt="Logo">
+                </div>
+            </nav>
+    </footer>
 </html>
