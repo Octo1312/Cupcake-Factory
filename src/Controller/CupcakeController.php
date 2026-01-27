@@ -62,53 +62,53 @@ final class CupcakeController extends AbstractController
             $this->addFlash('success', 'Couleur ajouté avec succès');
             
             if($cupcake->getId() !== null) {
-                return $this->redirectToRoute('Cupcake_modify', ['id' => $cupcake->getId()]);
+                return $this->redirectToRoute('modifycupcake', ['id' => $cupcake->getId()]);
             }
             return $this->redirectToRoute('addcupcake');
         }
 
-        return $this->render('Cupcake/addcupcake.html.twig', [
+        return $this->render('cupcake/addcupcake.html.twig', [
             'form' => $form->createView(), 
             'formcolors' => $formcolors->createView(),
             'isModification' => $cupcake->getId() !== null 
         ]);
     }
 
-    #[Route('/Cupcake/deletecupcake/{id}', name: 'deletecupcake')]
-    public function remove(Cupcake $Cupcake, Request $request, EntityManagerInterface $entityManager)
+    #[Route('/cupcake/deletecupcake/{id}', name: 'deletecupcake')]
+    public function remove(Cupcake $cupcake, Request $request, EntityManagerInterface $entityManager)
     {
         
-        if($this->isCsrfTokenValid('SUP'.$Cupcake->getId(),$request->get('_token'))){
-            $entityManager->remove($Cupcake);
+        if($this->isCsrfTokenValid('SUP'.$cupcake->getId(),$request->get('_token'))){
+            $entityManager->remove($cupcake);
             $entityManager->flush();
             $this->addFlash('success','La suppression à été effectuée');
             return $this->redirectToRoute('home');
         }
     }
 
-    #[Route('/Cupcake/detailscupcake/{id}', name: 'detailscupcake')]
-    public function article(Cupcake $Cupcake, ?Commentary $commentary, CupcakeRepository $CupcakeRepository, Request $request, EntityManagerInterface $entityManager, Security $security): Response
+    #[Route('/cupcake/detailscupcake/{id}', name: 'detailscupcake')]
+    public function article(Cupcake $cupcake, ?Commentary $commentary, CupcakeRepository $cupcakeRepository, Request $request, EntityManagerInterface $entityManager, Security $security): Response
     {
         if(!$commentary){
             $commentary = new Commentary;
         }
-        
+        // dd($cupcake);
         $form = $this->createForm(CommentaryType::class,$commentary);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
             $commentary->setUser($security->getUser());
-            $commentary->setCupcake($Cupcake);
+            $commentary->setCupcake($cupcake);
 
             $entityManager->persist($commentary);
             $entityManager->flush();
 
-            return $this->redirectToRoute('detailscupcake', ['id' => $Cupcake->getId()]);
+            return $this->redirectToRoute('detailscupcake', ['id' => $cupcake->getId()]);
         }
 
-        $Cupcake = $CupcakeRepository->findOneBy(['id' => $Cupcake->getId()]);
+        $cupcake = $cupcakeRepository->findOneBy(['id' => $cupcake->getId()]);
         return $this->render('cupcake/detailscupcake.html.twig', [
-            'Cupcake' => $Cupcake,
+            'cupcake' => $cupcake,
             'form' => $form->createView(),
         ]);
     }

@@ -1,0 +1,93 @@
+@use "../abstracts/variable" as variable;
+@use "../abstracts/mixin" as mix;
+
+#cupcake {
+    background-color: #AF3B6E;
+    padding-bottom: 2rem;
+
+    .container {
+        @include mix.container;
+
+        .container-form {
+            
+            h1 {
+                text-align: center;
+                padding-top: 1rem;
+                margin-bottom: 2rem;
+                font-size: 3rem;
+                color: #F5D7E3;
+                font-family: "Agbalumo";
+            }
+
+            form {
+                text-align: center;
+
+                .form label {
+                    color: #A6D9F7;
+                    font-size: 1.5rem;
+                    display: block;
+                    margin-bottom: 1rem;
+                    margin-top: 1rem;
+                }
+                
+                .form input {
+                    width: 30%;
+                    height: 50px;
+                    background-color: #F5D7E3;
+                    border-radius: 1rem;
+                    border: none;
+                    color: #AF3B6E;
+                }
+
+                .form textarea {
+                    width: 30%;
+                    height: 80px;
+                    background-color: #F5D7E3;
+                    border-radius: 1rem;
+                    color: #AF3B6E;
+                    font-size: 1rem;
+                }
+
+                .form input[type="text"], .form textarea, .form input[type="number"] {
+                    padding: 1rem;
+                }
+
+                .form select {
+                    width: 30%;
+                    background-color: #F5D7E3;
+                    border-radius: 1rem;
+                    padding-left: 1rem;
+                    color: #AF3B6E;
+                }
+
+                .form input[type="file"] {
+                    color: #F5D7E3;
+                    height: 50px;               
+                }
+
+                .form input[type="file"]::file-selector-button {
+                    color: #AF3B6E;
+                    background-color: #F5D7E3;
+                    border: none;
+                    padding-left: 5.5rem;
+                    padding-top: 0.8rem;
+                    font-family: "Agbalumo";
+                    font-size: 1.2rem;
+                }
+                
+
+                button {
+                    margin-top: 1rem;
+                    background-color: #F5D7E3;
+                    color: #AF3B6E;
+                    width: 30%;
+                    border-radius: 1rem;
+                    padding: 2rem;
+                    border: none;
+                    font-size: 1.5rem;
+                    font-family: "Agbalumo";
+                }
+            }
+        }
+    }
+}

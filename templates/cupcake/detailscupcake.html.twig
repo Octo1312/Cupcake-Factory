@@ -27,34 +27,42 @@
                             <p class="type">Couleurs :</p>
                             <p>
                                 {% for color in cupcake.colors %}
-                                    {{ color.name }}{% if not loop.last %}, {% endif %}
+                                    {{ color.color }}{% if not loop.last %}, {% endif %}
                                 {% endfor %}
                             </p>
                             {% endif %}
                         </div>
                         
                         <div class="card-option">
-                            {% if is_granted('ROLE_USER')%}
+                            {# {% if is_granted('ROLE_USER')%}
                                 {% if app.user.id == cupcake.user.id %}
-                                    <a href="{{path('cupcake_modify',{'id' : cupcake.id})}}">Modifier</a>
-                                    <form method="POST" action="{{ path('cupcake_delete', {'id': cupcake.id}) }}">
+                                    <a href="{{path('modifycupcake',{'id' : cupcake.id})}}">Modifier</a>
+                                    <form method="POST" action="{{ path('deletecupcake', {'id': cupcake.id}) }}">
                                         <input type="hidden" name="_method" value="delete">
                                         <input type="hidden" name="_token" value="{{csrf_token('SUP' ~ cupcake.id)}}">
                                         <input type="submit" id="delete" value="Supprimer">
                                     </form>
                                 {% endif %}
-                            {% endif %}
+                            {% endif %} #}
                         </div>
                     </div>
                     <div class="card-commentaries">
                         <div>
                             <h3>Commentaires :</h3>
-                            {% for commentarie in cupcake.commentaries %}
-                                <div class="commentary">
+                            <pre>
+                                {{ dump(cupcake.commentaries.elements) }}
+                            </pre>
+                            {# {% for commentarie in cupcake.commentaries %}
+                                
+                                <pre>
+                                    {{ dump(commentarie) }}
+                                </pre>
+
+                                {# <div class="commentary">
                                     <p><strong>{{ commentarie.user.username }} :</strong></p>
                                     <p class="commentary-end">{{ commentarie.content }}</p>
-                                </div>
-                            {% endfor %}
+                                </div> #}
+                            {# {% endfor %} #} 
 
                             {% if is_granted('ROLE_USER')%}
                                 {{ form(form) }}

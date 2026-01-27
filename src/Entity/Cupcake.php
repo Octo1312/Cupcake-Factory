@@ -169,7 +169,7 @@ class Cupcake
         return $this->imageFile;
     }
 
-    public function setImageFile(?File $imageFile): void
+    public function setImageFile(?File $imageFile = null): void
     {
         $this->imageFile = $imageFile;
 

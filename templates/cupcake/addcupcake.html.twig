@@ -3,19 +3,32 @@
 {% block title %}{{ isModification ? 'Modifier un cupcake' :  'Ajouter un cupcake' }}{% endblock %}
 
 {% block main %}
-    <section id="">
+    <section id="cupcake">
         <div class="container">
                 <div class="container-form">
                     <h1> {{ isModification ? 'Modifier le cupcake' :  'Ajouter un cupcake' }}</h1>
 
                     {{form_start(form)}}
-                        {{form_widget(form)}}
-                        <button>{{ isModification ? 'Modifier' :  'Ajouter' }}</button>
+                        <div class="form">
+                            {{form_row(form.name, {
+                                'label': 'Nom de votre Cupcake'
+                            }) }}
+                            {{form_row(form.price, {
+                                'label': 'Prix de votre Cupcake'
+                            }) }}
+                            {{form_row(form.description, {
+                                'label': 'Description de votre Cupcake'
+                            }) }}
+                            {{form_row(form.colors, {
+                                'label': 'Couleur de votre Cupcake'
+                            }) }}
+                            {{form_row(form.imageFile, {
+                                'label': 'Image de votre Cupcake',
+                                'label_attr' : {'class' : 'file'}
+                            }) }}
+                            <button>{{ isModification ? 'Modifier' :  'Ajouter' }}</button>
+                        </div>
                     {{form_end(form)}}
-
-                    {{form_start(formcolors)}}
-                        {{form_widget(formcolors)}}
-                    {{form_end(formcolors)}}
                   </div>
             </div>
     </section>
