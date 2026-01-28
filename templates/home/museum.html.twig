@@ -1,7 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Musée{% endblock %}
+{% block title %}Galerie{% endblock %}
 
 {% block main %}
-
+    <section id="display">
+        <div class="container">
+            <h2>Toutes les sucreries</h2>
+            <div class="cards container">
+            {% for cupcakes in cupcake %}
+                <div class="card">
+                    <div class="card-img">
+                        <img src="{{ asset('uploads/images/' ~ cupcakes.imageName) }}" alt="Cupcake">
+                    </div>
+                    <div class="card-title">
+                        {{ cupcakes.name }}
+                    </div>
+                    <div class="card-content">
+                        <p>{{ cupcakes.description }}</p>
+                        <a href="{{path('detailscupcake',{'id' : cupcakes.id})}}" class="btn btn-primary">Découvrir ici</a>
+                    </div>
+                </div>
+            {% endfor %}    
+            </div>
+        </div>
+    </section>
 {% endblock %}
