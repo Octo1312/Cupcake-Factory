@@ -1,0 +1,63 @@
+@use "../abstracts/variable" as variable;
+@use "../abstracts/mixin" as mix;
+
+#contactpage {
+    background-color: #AF3B6E;
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+
+    .container {
+        @include mix.container;
+        background-color: #F5D7E3;
+        border-radius: 2rem;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    form {
+        text-align: center;
+
+        label {
+            font-size: 1.5rem;
+            display: block;
+            color: #AF3B6E;
+        }
+
+        input {
+            margin-bottom: 1rem;
+            margin-top: 1rem;
+            border-radius: 1rem;
+            border: none;
+            padding: 1rem;
+            color: #AF3B6E;
+        }
+
+        textarea {
+            margin-top: 1rem;
+            border-radius: 1rem;
+            border: none;
+            padding: 1rem;
+            width: 40%;
+            height: 10vh;
+
+        }
+
+        button {
+            background-color: #AF3B6E;
+            color: #F5D7E3;
+            width: 30%;
+            border-radius: 1rem;
+            padding: 1rem;
+            border: none;
+            font-size: 1.5rem;
+            font-family: "Agbalumo";
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+    }
+}
