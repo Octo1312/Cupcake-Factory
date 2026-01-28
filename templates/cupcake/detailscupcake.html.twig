@@ -3,12 +3,12 @@
 {% block title %}Détails du cupcake{% endblock %}
 
 {% block main %}
-    <section id="">
+    <section id="detailscupcake">
         <div class="container">
-            <div class="card-container">
+            <div class="cards container">
                 <div class="card">
                     <div class="card-content">
-                        <div class="card-image">
+                        <div class="card-img">
                             <img src="{{ asset('uploads/images/' ~ cupcake.imageName) }}" alt="Image du cupcake">
                         </div>
                         <div class="card-title">
@@ -24,7 +24,7 @@
                                 <p>{{ cupcake.price }} €</p>
                             {% endif %}
                             {% if cupcake.colors != null %}
-                            <p class="type">Couleurs :</p>
+                            <p class="type">Couleur :</p>
                             <p>
                                 {% for color in cupcake.colors %}
                                     {{ color.color }}{% if not loop.last %}, {% endif %}
@@ -47,19 +47,20 @@
                         </div>
                     </div>
                     <div class="card-commentaries">
-                        <div>
                             <h3>Commentaires :</h3>
                             {% for commentarie in cupcake.commentaries %}
                                 <div class="commentary">
-                                    <p><strong>{{ commentarie.user.username }} :</strong></p>
-                                    <p class="commentary-end">{{ commentarie.content }}</p>
+                                    <p>{{ commentarie.user.username }} :</p>
+                                    <p class="commentary-end">{{ commentarie.texte }}</p>
                                 </div>
-                                {% endfor %} 
-
+                            {% endfor %} 
                             {% if is_granted('ROLE_USER')%}
-                                {{ form(form) }}
+                                {{form_start(form)}}
+                                    {{form_row(form.texte, {
+                                        'label': 'Donnez à ce cupcake votre meilleur commentaire'
+                                    }) }}
+                                {{form_end(form)}}
                             {% endif %}
-                        </div>
                     </div>
                 </div>
             </div>
