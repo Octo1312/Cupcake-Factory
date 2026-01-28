@@ -3,10 +3,15 @@
 {% block title %}S'inscrire{% endblock %}
 
 {% block main %}
-    <section id="register_form">
+    <section id="registerpage">
 <div class="form container">
 {{ form_start(registerform) }}
-    {{ form_widget(registerform)}}
+    {{form_row(registerform.username, {
+        'label': 'Nom de compte'
+    }) }}
+    {{form_row(registerform.password, {
+        'label': 'Mot de passe'
+    }) }}
     <div class="formbtn">
         <button class="btn" type="submit">S'inscrire</button>
     </div>
